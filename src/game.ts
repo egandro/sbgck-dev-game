@@ -8,7 +8,7 @@ abstract class GameState extends State {
         console.log("   playing mp3 audio: ", str);
     }
     randomText(...args: string[]): void {
-        const i = Math.floor(Math.random() * (args.length - 0) + 0);
+        const i = Math.floor(Math.random() * args.length);
         this.text(args[i]);
     }
     bgMusic(str: string): void {
@@ -54,7 +54,7 @@ abstract class GameState extends State {
             return [];
         }
         this.hack3 = true;
-        return ["Blue Pentagon", "Green Rectangle"];
+        return ["Blue Pentagon"];
     }
 }
 
@@ -179,6 +179,7 @@ class ExplainRules extends GameState {
     ];
 
     on(ctx: Context): void {
+        this.stopBgMusic();
         this.text('In this great exiting game you will be an elite soldier. Your mission is to sneak into the enemies control post.');
         this.text('You will start at a broken bridge.');
         this.delay(2000);
@@ -249,7 +250,7 @@ class GreetPlayers extends GameState {
         }
         this.text('Being a soldier in the arctic base, you have an extraordinary constitution. You start with a stamina of three.');
         this.delay(2000);
-        this.text('You also have a superior armour that includes a jetpack. Please keep in mind that the battery pack only gives you a single round.');
+        this.text('You also have a superior high-tech gear that includes a jetpack. Please keep in mind that the battery pack only gives you a single round.');
         this.delay(2000);
 
         for (const player of GlobalData["players"]) {
@@ -271,21 +272,33 @@ class GreetPlayers extends GameState {
 class Bridge extends GameState {
     name = 'Bridge';
     transitions = [
-        {
-            transition: "gotoBridge",
-            to: "Bridge"
-        }
+        // {
+        //     transition: "gotoBridge",
+        //     to: "Bridge"
+        // }
     ];
 
-    counter = 3;
     on(ctx: Context): void {
-        // simulate a loop
-        if (this.counter != 0) {
-            this.counter--;
-            this.transitionTo('gotoBridge');
+        this.bgMusic('ice_and_wind.mp3');
+        for (const player of GlobalData["players"]) {
+            if (player == "Blue Pentagon") {
+                this.text("blue soldier");
+            } else if (player == "Green Rectangle") {
+                this.text("green soldier");
+            } else {
+                this.text("soldier");
+            }
+            this.delay(2000);
         }
+        this.text('You see a broken bridge. The water in the arctic base is cold.');
+        this.delay(2000);
+        this.text('You can try swimming in the ice water and spend one of your stamina tokens or use the jetpack.');
+        this.delay(2000);
+        this.text('Make your decision and put a stamina token or the jetpack token on the playfield.');
+        this.delay(2000);
     }
 }
+
 
 const states: State[] = [
     new StartScreen(), new CalibrateReferenceFrame(), new CalibrateColors(), new EndCalibrateColors(),
@@ -294,7 +307,7 @@ const states: State[] = [
 
 const sm = new StateMachine(states);
 sm.verbose = true;
-//sm.run('StartScreen');
-GlobalData["players"] = ["Blue Pentagon", "Green Rectangle"];
-sm.run('ExplainRules');
+sm.run('StartScreen');
+//GlobalData["players"] = ["Blue Pentagon"];
+//sm.run('ExplainRules');
 //sm.run('Bridge');
