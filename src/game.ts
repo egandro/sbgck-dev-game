@@ -95,7 +95,7 @@ class CalibrateReferenceFrame extends GameState {
                 this.text('Please wait until you hear this notification bell.');
                 this.sfx("bell.mp3");
                 this.delay(2000);
-                this.text('We are starting now.');
+                this.text('Please empty the board.');
                 this.delay(2000);
                 first = false;
             }
