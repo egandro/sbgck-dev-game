@@ -149,14 +149,10 @@ class EndCalibrateColors extends GameState {
     ];
 
     on(ctx: Context): void {
-        let first = true;
+        this.sfx("bell.mp3");
         while (true) {
-            if (first) {
-                this.sfx("bell.mp3");
-                this.text('Color calibration successful. Please remove the color calibration card.');
-                this.delay(2000);
-                first = false;
-            }
+            this.text('Color calibration successful. Please remove the color calibration card.');
+            this.delay(2000);
             if (!this.detectColorCalibrationCard()) {
                 this.sfx("bell.mp3");
                 this.transitionTo('gotoExplainRules');
@@ -197,10 +193,10 @@ class DetectPlayers extends GameState {
     ];
 
     on(ctx: Context): void {
-        this.text('Please put your player token on the broken bridge.');
-        this.delay(2000);
         let players: any;
         while (true) {
+            this.text('Please put your player token on the broken bridge.');
+            this.delay(2000);
             players = this.queryTokens(
                 {
                     ROI: [
@@ -248,7 +244,7 @@ class GreetPlayers extends GameState {
             }
             this.delay(2000);
         }
-        this.text('Being a soldier in the arctic base, you have an extraordinary constitution. You start with a stamina of three.');
+        this.text('Being a soldier in the arctic base, requires an extraordinary constitution. You start with a stamina of three.');
         this.delay(2000);
         this.text('You also have a superior high-tech gear that includes a jetpack. Please keep in mind that the battery pack only gives you a single round.');
         this.delay(2000);
@@ -292,7 +288,7 @@ class Bridge extends GameState {
         }
         this.text('You see a broken bridge. The water in the arctic base is cold.');
         this.delay(2000);
-        this.text('You can try swimming in the ice water and spend one of your stamina tokens or use the jetpack.');
+        this.text('You can try swimming in the ice water and spend one of your stamina tokens. You can also use your jetpack.');
         this.delay(2000);
         this.text('Make your decision and put a stamina token or the jetpack token on the playfield.');
         this.delay(2000);
