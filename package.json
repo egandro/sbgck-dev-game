@@ -6,7 +6,8 @@
   "types": "./dist/main.d.ts",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/main.ts",
+    "start": "ts-node src/game.ts",
+    "startMain": "ts-node src/main.ts",
     "prepublishOnly": "tsc",
     "prepare": "tsc"
   },

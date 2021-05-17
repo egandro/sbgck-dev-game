@@ -6,7 +6,7 @@ Check main.ts for code.
 
 ```
 $ npm install
-$ npm start
+$ npm run startMain
 ```
 
 Result

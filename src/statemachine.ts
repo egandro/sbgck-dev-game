@@ -18,7 +18,7 @@ export interface Context {
 export interface StateInterface {
     name: string;
     transitions: Transition[];
-    onEnter(ctx: Context): void;
+    on(ctx: Context): void;
     transitionTo(transitionToCall: string): void;
 }
 
@@ -26,7 +26,7 @@ export abstract class State implements StateInterface {
     _transitionToCall: string = "";
     abstract name = "";
     abstract transitions: Transition[] = [];
-    abstract onEnter(ctx: Context): void;
+    abstract on(ctx: Context): void;
     transitionTo(transitionToCall: string): void {
         this._transitionToCall = transitionToCall;
     }
@@ -38,6 +38,7 @@ function c(str: string) {
 }
 
 export class StateMachine {
+    verbose = false;
     fsm: any;
     constructor(public states: State[]) {
 
@@ -46,14 +47,19 @@ export class StateMachine {
             methods: {}
         };
 
+        // .toLowerCase() is too stupid to fix the case issues...
+
         for (const state of states) {
             // attach enter event
-            obj.methods["on" + c(state.name)] = (fsm: any) => {
-                state.onEnter(fsm);
+            obj.methods["on" + c(state.name.toLowerCase())] = (fsm: any) => {
+                if (this.verbose) {
+                    console.log('State:', state.name);
+                }
+                state.on(fsm);
             };
             // add transitions
             for (const trans of state.transitions) {
-                obj.transitions.push({ name: trans.transition, from: state.name, to: trans.to });
+                obj.transitions.push({ name: trans.transition, from: state.name.toLowerCase(), to: trans.to.toLowerCase() });
             }
         }
 
@@ -62,10 +68,16 @@ export class StateMachine {
 
         // create fsm
         this.fsm = new JavaScriptStateMachine(obj);
+        // console.log(this.fsm.allStates());
+        // console.log(this.fsm.allTransitions());
+        // console.log(this.states);
+        // console.log(this.fsm);
     }
 
     run(startState: string) {
+        startState = startState.toLowerCase();
         if (!this.fsm.allStates().includes(startState)) {
+            console.error('invalid start state', startState);
             return;
         }
 
@@ -79,9 +91,31 @@ export class StateMachine {
                 if (trans != null || trans !== undefined) {
                     trans = trans.trim();
                     if (trans.length > 0) {
+                        //console.log("possible transitions:", this.fsm.transitions());
                         if (this.fsm.allTransitions().includes(trans)) {
-                            this.fsm[trans]();
                             found = true;
+                            // console.log("xxx");
+                            // console.log("state", this.fsm.state);
+                            // console.log("xxx", this.fsm._fsm.config);
+
+                            // console.log("trans:", trans);
+                            // console.log("state:", this.fsm.state);
+                            // console.log("map[state]:", this.fsm._fsm.config.map[this.fsm.state]);
+
+                            if (this.fsm._fsm.config.map[this.fsm.state].hasOwnProperty(trans)) {
+                                const transMap: any = this.fsm._fsm.config.map[this.fsm.state][trans];
+                                if (transMap.from == transMap.to) {
+                                    // console.log("Transitive state change detected!", transMap.from, '->', transMap.to);
+                                    // hack with goto
+                                    // console.log(this.fsm.transitions());
+                                    // this.fsm.goto(transMap.from);
+                                    // this.fsm._fsm.fire(transMap);
+                                    // super hack here
+                                    this.fsm._fsm.transit(trans, transMap.from + '_transitive', transMap.to, []);
+                                    break;
+                                }
+                            }
+                            this.fsm[trans]();
                             break;
                         }
                     }

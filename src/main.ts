@@ -9,9 +9,8 @@ class Solid extends State {
         }
     ];
 
-    onEnter(ctx: Context): void {
-        console.log('Entered: ', this.name);
-        if (ctx.from == 'Liquid') {
+    on(ctx: Context): void {
+        if (ctx.from == 'liquid') {
             console.log(' ... good bye');
         } else {
             this.transitionTo('melt');
@@ -32,9 +31,8 @@ class Liquid extends State {
         }
     ];
 
-    onEnter(ctx: Context): void {
-        console.log('Entered: ', this.name);
-        if (ctx.from == 'Solid') {
+    on(ctx: Context): void {
+        if (ctx.from == 'solid') {
             this.transitionTo('vaporize');
         } else {
             this.transitionTo('freeze');
@@ -52,8 +50,7 @@ class Gas extends State {
         }
     ];
 
-    onEnter(ctx: Context): void {
-        console.log('Entered: ', this.name);
+    on(ctx: Context): void {
         this.transitionTo('condense');
     }
 }
@@ -63,4 +60,5 @@ const states: State[] = [
 ];
 
 const sm = new StateMachine(states);
+sm.verbose = true;
 sm.run('Solid');
