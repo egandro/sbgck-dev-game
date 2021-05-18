@@ -20,3 +20,5 @@ Entered:  Solid
  ... good bye
 
 ```
+
+TTag: https://ttag.js.org/docs/typescript.html
