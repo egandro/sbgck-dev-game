@@ -22,3 +22,9 @@ Entered:  Solid
 ```
 
 TTag: https://ttag.js.org/docs/typescript.html
+
+Idea:
+
+```
+  $ echo -n '${ narrator }Please make sure the camera is working, please check the zoom level and make sure it can see the playfield.' | md5sum | sed 's/\s.*$//'
+```
