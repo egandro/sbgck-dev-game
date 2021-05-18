@@ -5,6 +5,9 @@ import { GameState, narrator } from './gamestate';
 
 const GlobalData: any = {}
 
+declare let x: string;
+console.log(x);
+
 class StartScreen extends GameState {
     name = 'StartScreen';
     transitions = [
