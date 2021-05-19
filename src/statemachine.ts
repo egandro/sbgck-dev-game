@@ -17,6 +17,7 @@ export interface Context {
 
 export interface StateInterface {
     name: string;
+    sm: StateMachine;
     transitions: Transition[];
     on(ctx: Context): void;
     transitionTo(transitionToCall: string): void;
@@ -24,6 +25,7 @@ export interface StateInterface {
 
 export abstract class State implements StateInterface {
     _transitionToCall: string = "";
+    sm: StateMachine = <any>null;
     abstract name = "";
     abstract transitions: Transition[] = [];
     abstract on(ctx: Context): void;
@@ -40,6 +42,8 @@ function c(str: string) {
 export class StateMachine {
     verbose = false;
     fsm: any;
+    globalData: Record<string, any> = {}
+
     constructor(public states: State[]) {
 
         const obj: any = {
@@ -50,6 +54,8 @@ export class StateMachine {
         // .toLowerCase() is too stupid to fix the case issues...
 
         for (const state of states) {
+            // store statemachine
+            state.sm = this;
             // attach enter event
             obj.methods["on" + c(state.name.toLowerCase())] = (fsm: any) => {
                 if (this.verbose) {

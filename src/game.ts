@@ -5,8 +5,6 @@ import { GameState } from './sbgck';
 
 export const narrator: string = '[narrator] '; // hack for t's
 
-const GlobalData: any = {}
-
 class StartScreen extends GameState {
     name = 'StartScreen';
     transitions = [
@@ -164,7 +162,7 @@ class DetectPlayers extends GameState {
                 this.sfx('error.mp3');
                 this.text(t`${narrator}No Player detected`);
             } else {
-                GlobalData['players'] = players;
+                this.sm.globalData['players'] = players;
                 break;
             }
         }
@@ -182,7 +180,7 @@ class GreetPlayers extends GameState {
     ];
 
     on(ctx: Context): void {
-        for (const player of GlobalData['players']) {
+        for (const player of this.sm.globalData['players']) {
             this.randomText('Greetings Soldier', 'Welcome Hero', 'Great to have you here');
             if (player == 'Blue Pentagon') {
                 this.text(t`${narrator}blue soldier`);
@@ -198,7 +196,7 @@ class GreetPlayers extends GameState {
         this.text(t`${narrator}You also have a superior high-tech gear that includes a jetpack. Please keep in mind that the battery pack only gives you a single round.`);
         this.delay(2000);
 
-        for (const player of GlobalData['players']) {
+        for (const player of this.sm.globalData['players']) {
             if (player == 'Blue Pentagon') {
                 this.text(t`${narrator}blue soldier`);
             } else if (player == 'Green Rectangle') {
@@ -225,7 +223,7 @@ class Bridge extends GameState {
 
     on(ctx: Context): void {
         this.bgMusic('ice_and_wind.mp3');
-        for (const player of GlobalData['players']) {
+        for (const player of this.sm.globalData['players']) {
             if (player == 'Blue Pentagon') {
                 this.text(t`${narrator}blue soldier`);
             } else if (player == 'Green Rectangle') {
