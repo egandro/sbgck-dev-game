@@ -4,6 +4,11 @@
 declare var x: string;
 globalThis.x = "abc";
 
+// declare let x: string;
+// if(x !== undefined) {
+//     console.log(x);
+// }
+
 // Dynamic import
 let xxx = './game.ts';
 

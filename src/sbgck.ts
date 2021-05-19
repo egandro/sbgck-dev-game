@@ -1,8 +1,6 @@
 
 import { State } from './statemachine';
 
-export const narrator: string = '[narrator] '; // hack for t's
-
 export abstract class GameState extends State {
     text(str: string): void {
         console.log('   mp3 audio:', str);

@@ -1,12 +1,11 @@
 import { t } from 'ttag';
 
 import { StateMachine, Context } from './statemachine';
-import { GameState, narrator } from './gamestate';
+import { GameState } from './sbgck';
+
+export const narrator: string = '[narrator] '; // hack for t's
 
 const GlobalData: any = {}
-
-declare let x: string;
-console.log(x);
 
 class StartScreen extends GameState {
     name = 'StartScreen';
