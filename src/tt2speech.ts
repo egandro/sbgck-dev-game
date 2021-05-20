@@ -3,21 +3,28 @@ const fetch = require('node-fetch');
 import { parse } from '@fast-csv/parse';
 
 const data: any[] = [];
+const lang = "en";
+const outBaseDir = "./dist/mp3/";
+const outDir = outBaseDir + lang + "/";
+
+if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir, { recursive: true });
+}
+
 let first = true;
 const stream = parse({ headers: false })
-    .on('error', error => console.error(error))
+    .on('error', (error: any) => console.error(error))
     .on('data', (row: any) => {
         if (first) {
             first = false;
-        } else {
-            // console.log(row);
-            const item = {
-                mp3: row[0],
-                role: row[1],
-                text: row[2]
-            };
-            data.push(item);
+            return;
         }
+        // console.log(row);
+        data.push({
+            mp3: row[0],
+            role: row[1],
+            text: row[2]
+        });
     })
     .on('end', (rowCount: number) => {
         console.log(`Parsed ${rowCount} rows`);
@@ -31,22 +38,26 @@ const csv = fs.readFileSync("./po/voice_actor_tt2speech.csv", "utf8");
 stream.write(csv);
 stream.end(() => {
     for (const item of data) {
-        ttsmp3_com_engine(item);
+        ttsmp3_com_engine(item, outDir, lang);
     }
 });
 
-function ttsmp3_com_engine(item: any) {
+// we might have more then this generator
+function ttsmp3_com_engine(item: any, destFolder: string, lang: string) {
     const mp3 = item.mp3;
     const role = item.role;
     const text = item.text;
 
-    const outFile = './dist/' + mp3;
+    const outFile = destFolder + mp3;
     if (fs.existsSync(outFile)) {
         console.log("already have: ", outFile);
         return;
     }
 
-    const body = "lang=Matthew&source=ttsmp3&msg=" + text;
+    //TODO: role, lang mapping there for the voice
+
+    let voice = "Matthew";
+    const body = "lang=" + voice + "&source=ttsmp3&msg=" + text;
 
     fetch("https://ttsmp3.com/makemp3_new.php", {
         "headers": {
@@ -73,7 +84,7 @@ function ttsmp3_com_engine(item: any) {
             const Text = json.Text;
             const URL = json.URL;
 
-            if(text !== Text) {
+            if (text !== Text) {
                 console.error('file was not rendered');
                 return;
             }
