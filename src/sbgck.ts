@@ -1,9 +1,20 @@
+const crypto = require('crypto');
 
 import { State } from './statemachine';
+
+function md5sum(val:string) : string {
+    return crypto.createHash('md5').update(val).digest('hex');
+}
 
 export abstract class GameState extends State {
     text(str: string): void {
         console.log('   mp3 audio:', str);
+        const pos = str.indexOf(']');
+        if(pos>-1) {
+            let text = str.substring(pos+1, str.length).trim();
+            text = md5sum(text) + ".mp3";
+            // console.log('             ', text);
+        }
     }
     randomText(...args: string[]): void {
         const i = Math.floor(Math.random() * args.length);
