@@ -1,19 +1,15 @@
-const crypto = require('crypto');
-
+import { msgid2mp3name, cleanHTMLEntities } from './poutils';
 import { State } from './statemachine';
 
-function md5sum(val:string) : string {
-    return crypto.createHash('md5').update(val).digest('hex');
-}
-
 export abstract class GameState extends State {
+    public static verboseText: boolean = true;
     text(str: string): void {
-        console.log('   mp3 audio:', str);
-        const pos = str.indexOf(']');
-        if(pos>-1) {
-            let text = str.substring(pos+1, str.length).trim();
-            text = md5sum(text) + ".mp3";
-            // console.log('             ', text);
+        const mp3 = msgid2mp3name(str, ']');
+        str = cleanHTMLEntities(str);
+        if (GameState.verboseText) {
+            console.log('   mp3 audio:', mp3, str);
+        } else {
+            console.log('   mp3 audio:', str);
         }
     }
     randomText(...args: string[]): void {

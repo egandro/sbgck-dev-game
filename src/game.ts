@@ -1,9 +1,11 @@
 import { t } from 'ttag';
 
-import { StateMachine, Context } from './statemachine';
-import { GameState } from './sbgck';
+import { StateMachine, Context } from './lib/statemachine';
+import { GameState } from './lib/sbgck';
 
 export const narrator: string = '[narrator] '; // hack for t's
+
+// supported html entities for https://ttsmp3.com/
 
 class StartScreen extends GameState {
     name = 'StartScreen';
@@ -16,7 +18,7 @@ class StartScreen extends GameState {
 
     on(ctx: Context): void {
         this.bgMusic('main_theme.mp3');
-        this.text(t`${narrator}Welcome to the debug game. This game is for one player.`);
+        this.text(t`${narrator}<emphasis level="strong">     Welcome  </emphasis> to the debug game. This game is for one player.`);
         this.delay(2000);
         this.text(t`${narrator}Please make sure the camera is working, please check the zoom level and make sure it can see the playfield.`);
         this.delay(2000);
@@ -181,7 +183,7 @@ class GreetPlayers extends GameState {
 
     on(ctx: Context): void {
         for (const player of this.sm.globalData['players']) {
-            this.randomText('Greetings Soldier', 'Welcome Hero', 'Great to have you here');
+            this.randomText(t`${narrator}Greetings Soldier`, t`${narrator}Welcome Hero`, t`${narrator}Great to have you here`);
             if (player == 'Blue Pentagon') {
                 this.text(t`${narrator}blue soldier`);
             } else if (player == 'Green Rectangle') {

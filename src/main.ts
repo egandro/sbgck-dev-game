@@ -1,4 +1,4 @@
-import { State, StateMachine, Context } from './statemachine';
+import { State, StateMachine, Context } from './lib/statemachine';
 
 class Solid extends State {
     name = 'Solid';

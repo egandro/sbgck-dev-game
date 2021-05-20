@@ -10,16 +10,24 @@
     "startMain": "ts-node src/main.ts",
     "prepublishOnly": "tsc",
     "prepare": "tsc",
-    "po": "rm -f uk.po* && ttag init uk uk.po && ttag update uk.po src/game.ts && ttag po2json uk.po > uk.po.json && cat uk.po.json | jq '.translations.\"\" | keys | .[]' -r | sed '/^$/d' >texts.txt && rm -f uk.po*"
+    "po": "mkdirp po && mkdirp dist && ttag init en po/en.po && ttag update po/en.po src/game.ts",
+    "po2": "rm -f uk.po* && ttag init uk uk.po && ttag update uk.po src/game.ts && ttag po2json uk.po > uk.po.json && cat uk.po.json | jq '.translations.\"\" | keys | .[]' -r | sed '/^$/d' >texts.txt && rm -f uk.po*"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "export-to-csv": "^0.2.1",
+    "fast-csv": "^4.3.6",
     "javascript-state-machine": "^3.1.0",
+    "node-fetch": "^2.6.1",
+    "pofile": "^1.1.1",
+    "string-strip-html": "^8.2.13",
     "ttag": "^1.7.24"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
+    "mkdirp": "^0.5.5",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "ttag-cli": "^1.9.2",
     "typescript": "^4.2.2"
