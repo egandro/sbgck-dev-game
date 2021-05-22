@@ -1,0 +1,15 @@
+<img src="[Arctic-base] (imported)" width="1184" height="800" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:pi  -->
+<area shape="poly" coords="146,278,149,488,235,488,234,289,220,278" target="#storageRoom" href="#storageRoom" />
+<area shape="rect" coords="249,376,489,587" target="#livingRoom" href="#livingRoom" />
+<area shape="poly" coords="230,503,114,504,115,679,300,684,301,609,227,607" target="#yard" href="#yard" />
+<area shape="rect" coords="883,212,1040,374" target="#controlPost" href="#controlPost" />
+<area shape="circle" coords="112,146,59" target="#bridge" href="#bridge" />
+<area shape="poly" coords="548,504,608,504,609,574,671,575,670,642,623,642,593,678,549,678" target="#boxes" href="#boxes" />
+</map>

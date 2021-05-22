@@ -45,7 +45,7 @@ export class TTSTools {
         };
 
         if(map) {
-            const mapData = fs.readFileSync(map);
+            const mapData = fs.readFileSync(map, "utf8");
             mapHash = JSON.parse(mapData);
         }
 
@@ -130,7 +130,7 @@ export class TTSTools {
             return false;
         }
 
-        const text = fs.readFileSync(csvFileName);
+        const text = fs.readFileSync(csvFileName, "utf8");
 
         const messages: Message[] = csvsync.parse(text, {
             skipHeader: true,

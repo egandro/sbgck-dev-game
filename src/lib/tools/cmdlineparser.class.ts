@@ -49,6 +49,21 @@ export class CmdLineParser {
             })
             .help('creates mp3 files with a free tts engine from *_tts.csv files create by the "po" command');
 
+        parser.command('map')
+            .option('source', {
+                abbr: 's',
+                metavar: 'src',
+                required: true,
+                help: 'source directory of *.map files'
+            })
+            .option('target', {
+                abbr: 't',
+                metavar: 'target',
+                required: true,
+                help: 'output directory of json version of map files'
+            })
+            .help('creates json files from html image map .map files');
+
         let opts = parser.parse();
 
         if (opts[0] === undefined || opts[0] === '') {
