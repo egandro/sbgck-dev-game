@@ -112,6 +112,39 @@ export class PoTools {
         return result;
     }
 
+    public static createOrUpdatePoFiles(sourceDir: string, targetDir: string,  languages: string): boolean {
+
+        if (!fs.existsSync(sourceDir)) {
+            console.error(`error: source directory does not exist "${sourceDir}"`);
+            return false;
+        }
+
+        if (!fs.existsSync(sourceDir)) {
+            fs.mkdirSync(sourceDir, { recursive: true });
+        }
+
+        if (!fs.existsSync(sourceDir)) {
+            console.error(`error: target directory does not exist "${sourceDir}"`);
+            return false;
+        }
+
+        const langs = languages.split(',');
+
+        for (const i in langs) {
+            const lang = langs[i].trim();
+
+            if(!PoTools.createOrUpdatePoFile(sourceDir, targetDir, lang)) {
+                return false;
+            }
+
+            if(!PoTools.createVoiceActorListFromPoFile(targetDir, lang)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static createOrUpdatePoFile(sourceDir: string, targetDir: string, language: string): boolean {
 
         if (!fs.existsSync(sourceDir)) {

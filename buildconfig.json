@@ -10,5 +10,6 @@
             "from": "boards",
             "filter": [".png"]
         }
-    ]
+    ],
+    "languages": "en,de,fr"
 }

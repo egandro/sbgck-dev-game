@@ -43,9 +43,15 @@ export class CmdLineParser {
                 required: true,
                 help: 'output directory of mp3 files'
             })
+            .option('force', {
+                abbr: 'f',
+                default: false,
+                flag: true,
+                help: 'force overwrite'
+            })
             .option('map', {
                 abbr: 'm',
-                help: 'custom json file with mapping for tts, role, roles'
+                help: 'use custom json file with mapping for tts, role, roles'
             })
             .help('creates mp3 files with a free tts engine from *_tts.csv files create by the "po" command');
 
@@ -62,6 +68,12 @@ export class CmdLineParser {
                 required: true,
                 help: 'output directory of json version of map files'
             })
+            .option('force', {
+                abbr: 'f',
+                default: false,
+                flag: true,
+                help: 'force overwrite'
+            })
             .help('creates json files from html image map .map files');
 
         parser.command('svg2png')
@@ -76,6 +88,12 @@ export class CmdLineParser {
                 metavar: 'target',
                 required: true,
                 help: 'output directory of png version of svg files'
+            })
+            .option('force', {
+                abbr: 'f',
+                default: false,
+                flag: true,
+                help: 'force overwrite'
             })
             .help('creates png files svg files (by using imagemagick)');
 

@@ -4,8 +4,40 @@ const path = require('path');
 
 
 export class MapTools {
-    public static createJsonFilesFromMap(fileName: string, targetDir: string): boolean {
 
+    public static createJsonFilesFromImageMaps(sourceDir: string, targetDir: string, forceOverWrite: boolean): boolean {
+        if (!fs.existsSync(sourceDir)) {
+            console.error(`error: source directory does not exist xxx "${sourceDir}"`);
+            return false;
+        }
+
+        if (!fs.existsSync(targetDir)) {
+            fs.mkdirSync(targetDir, { recursive: true });
+        }
+
+        if (!fs.existsSync(targetDir)) {
+            console.error(`error: target directory does not exist "${targetDir}"`);
+            return false;
+        }
+
+        const fileNames = fs.readdirSync(sourceDir);
+        const tail = ".map";
+
+        for (let fileName of fileNames) {
+            if (!fileName.endsWith(tail)) {
+                continue;
+            }
+
+            fileName = sourceDir + "/" + fileName;
+            if(!MapTools.createJsonFileFromMap(fileName, targetDir, forceOverWrite)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static createJsonFileFromMap(fileName: string, targetDir: string, forceOverWrite: boolean): boolean {
         const options = {
             attributeNamePrefix: "",
             ignoreAttributes: false,
@@ -15,6 +47,11 @@ export class MapTools {
         const xmlData = fs.readFileSync(fileName, "utf-8");
         const mapName = path.basename(fileName).split('.').slice(0, -1).join('.');
         const targetFile = targetDir + "/" + mapName + ".json";
+
+        if (forceOverWrite != true && fs.existsSync(targetFile)) {
+            console.log("already have:", targetFile);
+            return true;
+        }
 
         const result: any = {};
         result.name = mapName;

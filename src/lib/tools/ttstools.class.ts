@@ -8,7 +8,8 @@ export interface Message {
     text: string;
 }
 export class TTSTools {
-    private static async ttsmp3_com_engine(message: Message, targetDir: string, lang: string, map?: string): Promise<boolean> {
+    private static async ttsmp3_com_engine(message: Message, targetDir: string, lang: string,
+            forceOverWrite: boolean, map?: string): Promise<boolean> {
         const mp3 = message.mp3;
         const role = message.role;
         const text = message.text;
@@ -21,10 +22,12 @@ export class TTSTools {
         }
 
         const targetFile = targetDir + '/' + mp3;
-        if (fs.existsSync(targetFile)) {
+
+        if (forceOverWrite != true && fs.existsSync(targetFile)) {
             console.log("already have:", targetFile);
             return true;
         }
+
 
         let voice = "Matthew"; // default
 
@@ -118,7 +121,50 @@ export class TTSTools {
         return true;
     }
 
-    public static async createMp3FilesFromCVS(csvFileName: string, targetBaseDir: string, lang: string, map?: string): Promise<boolean> {
+    public static async createMp3sFilesFromCVSs(sourceDir: string, targetBaseDir: string, forceOverWrite: boolean, map?: string): Promise<boolean> {
+        if (!fs.existsSync(sourceDir)) {
+            console.error(`error: source directory does not exist "${sourceDir}"`);
+            return false;
+        }
+
+        if (!fs.existsSync(targetBaseDir)) {
+            fs.mkdirSync(targetBaseDir, { recursive: true });
+        }
+
+        if (!fs.existsSync(targetBaseDir)) {
+            console.error(`error: target directory does not exist "${targetBaseDir}"`);
+            return false;
+        }
+
+        if (map && !fs.existsSync(map)) {
+            console.error(`error: tts map file does not exist "${map}"`);
+            return false;
+        }
+
+        const fileNames = fs.readdirSync(sourceDir);
+        const tail = "_tts.csv";
+
+        for (const fileName of fileNames) {
+            if (!fileName.endsWith(tail)) {
+                continue;
+            }
+            if (fileName.length != tail.length + 2) {
+                continue;
+            }
+            const lang = fileName.substr(0, 2);
+
+            const csvFile = sourceDir + "/" + fileName;
+
+            if(!await TTSTools.createMp3FilesFromCVS(csvFile, targetBaseDir, lang, forceOverWrite, map)) {
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
+    public static async createMp3FilesFromCVS(csvFileName: string, targetBaseDir: string, lang: string, forceOverWrite: boolean, map?: string): Promise<boolean> {
         const targetDir = targetBaseDir + "/" + lang;
 
         if (!fs.existsSync(targetDir)) {
@@ -141,7 +187,7 @@ export class TTSTools {
         });
 
         for (const message of messages) {
-            if (!await TTSTools.ttsmp3_com_engine(message, targetDir, lang, map)) {
+            if (!await TTSTools.ttsmp3_com_engine(message, targetDir, lang, forceOverWrite, map)) {
                 return false;
             }
         }
