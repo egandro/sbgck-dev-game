@@ -7,7 +7,7 @@ export class MapTools {
 
     public static createJsonFilesFromImageMaps(sourceDir: string, targetDir: string, forceOverWrite: boolean): boolean {
         if (!fs.existsSync(sourceDir)) {
-            console.error(`error: source directory does not exist xxx "${sourceDir}"`);
+            console.error(`error: source directory does not exist "${sourceDir}"`);
             return false;
         }
 

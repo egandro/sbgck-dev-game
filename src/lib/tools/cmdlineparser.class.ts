@@ -97,6 +97,29 @@ export class CmdLineParser {
             })
             .help('creates png files svg files (by using imagemagick)');
 
+        parser.command('game')
+            .option('source', {
+                abbr: 's',
+                metavar: 'src',
+                required: true,
+                default: ".",
+                help: 'default project directory'
+            })
+            .option('target', {
+                abbr: 't',
+                metavar: 'target',
+                required: true,
+                default: "./game",
+                help: 'output directory '
+            })
+            .option('force', {
+                abbr: 'f',
+                default: false,
+                flag: true,
+                help: 'force overwrite'
+            })
+            .help('creates game from given source dir');
+
         let opts = parser.parse();
 
         if (opts[0] === undefined || opts[0] === '') {

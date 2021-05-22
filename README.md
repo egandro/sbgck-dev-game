@@ -43,3 +43,6 @@ node launcher.js tts -s ./dist/po -t ./dist/audio -m ./tts-map.json
 node launcher.js map -s ./boards -t ./dist/boards
 
 node launcher.js svg2png -s ./svg -t ./dist/assets
+
+
+node launcher.js game
