@@ -1,7 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const AdmZip = require('adm-zip');
+
 import { SVGTools } from "./svgtools.class";
 import { MapTools } from "../tools/maptools.class";
+import { PoTools } from "../tools/potools.class";
+import { TTSTools } from "../tools/ttstools.class";
+import { isFunction } from "util";
 
 export class GameTools {
 
@@ -59,7 +64,43 @@ export class GameTools {
         }
     }
 
-    public static createGameFromDirectory(sourceDir: string, targetDir: string, forceOverWrite: boolean): boolean {
+    public static zipFolderRecursiveSync(source: string, zip: any, level: number = 0, root: string = "") {
+        let files = [];
+        if (fs.lstatSync(source).isDirectory()) {
+            if(level == 0) {
+                root = path.join(source, '');
+            }
+            files = fs.readdirSync(source);
+            files.forEach((file: string) => {
+                var curSource = path.join(source, file);
+                if (fs.lstatSync(curSource).isDirectory()) {
+                    GameTools.zipFolderRecursiveSync(curSource, zip, level+1, root);
+                } else {
+                    let zipPath = curSource.replace(/\\/g, "/");
+                    root = root.replace(/\\/g, "/");
+
+                    //console.log(root, zipPath);
+
+                    if(root.length>0) {
+                        zipPath = zipPath.substring(root.length+1); // +1 = delimiter
+                    }
+
+                    const zipName = zipPath.substring(zipPath.lastIndexOf("/")+1);
+                    zipPath = zipPath.substring(0, zipPath.lastIndexOf("/"));
+                    // console.log(root, zipPath, zipName);
+                    zip.addLocalFile(curSource, zipPath, zipName);
+                }
+            });
+        }
+    }
+
+    public static createZip(sourceDir: string, target: string) {
+        const zip = new AdmZip();
+        GameTools.zipFolderRecursiveSync(sourceDir, zip);
+	    zip.writeZip(target);
+    }
+
+    public static async createGameFromDirectory(sourceDir: string, targetDir: string, forceOverWrite: boolean): Promise<boolean> {
 
         if (!fs.existsSync(sourceDir)) {
             console.error(`error: source directory does not exist "${sourceDir}"`);
@@ -71,6 +112,9 @@ export class GameTools {
             console.error(`error: source directory does not have a "gameconfig.json" file"${sourceDir}"`);
             return false;
         }
+
+        const gameConfigFileData = fs.readFileSync(gameConfigFile, "utf8");
+        const gameConfig = JSON.parse(gameConfigFileData);
 
         if (!fs.existsSync(targetDir)) {
             fs.mkdirSync(targetDir, { recursive: true });
@@ -108,6 +152,45 @@ export class GameTools {
             if (!MapTools.createJsonFilesFromImageMaps(boardsDir, targetDir + "/" + "boards", forceOverWrite)) {
                 return false;
             }
+        }
+
+        const srcDir = sourceDir + "/" + "src";
+        const poDir = targetDir + "/" + "po";
+        if (fs.existsSync(srcDir)) {
+            if (gameConfig.hasOwnProperty("languages")) {
+                let languages = '';
+
+                for(const i in gameConfig.languages) {
+                    const lang = gameConfig.languages[i].trim();
+                    languages += lang;
+                    if(i+1 < gameConfig.languages.length) {
+                        languages += ",";
+                    }
+                }
+
+                if(!PoTools.createOrUpdatePoFiles(srcDir, poDir, languages)) {
+                    return false;
+                }
+            }
+        }
+
+        if (fs.existsSync(poDir)) {
+            const audioDir = targetDir + "/" + "audio";
+            let map: any = null;
+            const ttsMapFile = sourceDir + "/" + "tts-map.json";
+            if (fs.existsSync(ttsMapFile)) {
+                map = ttsMapFile;
+            }
+
+            if(!await TTSTools.createMp3sFilesFromCVSs(poDir, audioDir, forceOverWrite, map)) {
+                return false;
+            }
+        }
+
+        if (gameConfig.hasOwnProperty("name")) {
+            const name = gameConfig.name;
+            const zipFile = sourceDir + "/" + name + ".zip";
+            GameTools.createZip(targetDir, zipFile);
         }
 
         return false;

@@ -14,7 +14,7 @@ export class Game {
     async run(opts: Opts): Promise<number> {
         this.opts = opts;
 
-        if(!GameTools.createGameFromDirectory(this.opts.source, this.opts.target, this.opts.force)) {
+        if(!await GameTools.createGameFromDirectory(this.opts.source, this.opts.target, this.opts.force)) {
             return 1;
         }
 

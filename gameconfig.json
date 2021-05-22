@@ -1,5 +1,6 @@
 {
-    "name": "Dev Game",
+    "name": "dev_game",
+    "languages": ["en"],
     "boards": [
         {
             "name": "Arctic",
