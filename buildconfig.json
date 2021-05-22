@@ -1,0 +1,14 @@
+{
+    "copy": [
+        {
+            "from": "assets"
+        },
+        {
+            "from": "audio"
+        },
+        {
+            "from": "boards",
+            "filter": [".png"]
+        }
+    ]
+}
