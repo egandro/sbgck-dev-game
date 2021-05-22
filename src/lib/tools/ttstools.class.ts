@@ -20,9 +20,9 @@ export class TTSTools {
             return true;
         }
 
-        const outFile = targetDir + '/' + mp3;
-        if (fs.existsSync(outFile)) {
-            console.log("already have: ", outFile);
+        const targetFile = targetDir + '/' + mp3;
+        if (fs.existsSync(targetFile)) {
+            console.log("already have: ", targetFile);
             return true;
         }
 
@@ -112,8 +112,8 @@ export class TTSTools {
             "credentials": "omit"
         }).then((res: any) => res.buffer());
 
-        console.log(`downloaded: ${outFile} - language: ${lang} - role: ${role} - voice: ${voice} - text: ${text}`);
-        fs.writeFileSync(outFile, response);
+        console.log(`downloaded: ${targetFile} - language: ${lang} - role: ${role} - voice: ${voice} - text: ${text}`);
+        fs.writeFileSync(targetFile, response);
 
         return true;
     }

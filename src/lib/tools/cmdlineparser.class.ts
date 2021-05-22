@@ -64,6 +64,21 @@ export class CmdLineParser {
             })
             .help('creates json files from html image map .map files');
 
+        parser.command('svg2png')
+            .option('source', {
+                abbr: 's',
+                metavar: 'src',
+                required: true,
+                help: 'source directory of *.svg files'
+            })
+            .option('target', {
+                abbr: 't',
+                metavar: 'target',
+                required: true,
+                help: 'output directory of png version of svg files'
+            })
+            .help('creates png files svg files (by using imagemagick)');
+
         let opts = parser.parse();
 
         if (opts[0] === undefined || opts[0] === '') {
