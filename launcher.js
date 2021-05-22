@@ -10,10 +10,10 @@ if (process.platform != 'win32') {
 }
 
 require('ts-node').register({
-    // ignore: [], // needed in order to run from /usr/local...
-    // cacheDirectory: cacheDirectory,
-    // cache: true,
-    // project: __dirname
+    ignore: [], // needed in order to run from /usr/local...
+    cacheDirectory: cacheDirectory,
+    cache: true,
+    dir: __dirname
 });
 
 require('./src/lib/cli.ts');

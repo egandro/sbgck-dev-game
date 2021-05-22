@@ -6,4 +6,4 @@ if (args == null) {
 }
 
 const run = require(args.module).default;
-run(args.opts);
+process.exit(run(args.opts));
