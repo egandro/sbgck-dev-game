@@ -68,9 +68,16 @@ export class PoTools {
         const po = PO.parse(podata);
 
         for (const item of po.items) {
-            const message = PoTools.getMessage(item.msgid, !isTTS);
+            let str: string;
+            if(item.msgstr == null || item.msgstr === undefined || item.msgstr.length == 0 || item.msgstr[0].trim().length == 0) {
+                // not translated, yet
+                str = item.msgid;
+            } else {
+                str = item.msgstr[0]; // first
+            }
+            const message = PoTools.getMessage(str, !isTTS);
             if (message == null) {
-                console.error(`error: in po file "${poFile}" - message: ${item.msgid} has no role`);
+                console.error(`error: in po file "${poFile}" - no "ROLE" in message: ${item.msgid} `);
                 return [];
             }
             result.push(message);
@@ -150,9 +157,14 @@ export class PoTools {
 
         for(const isTTS of flavors) {
             const messages = PoTools.getMessagesFromPoFile(poFile, isTTS);
-            PoTools.writeVoiceActorCVSFile(targetDir, language, messages, isTTS);
+            if(messages.length == 0) {
+                return false;
+            }
+            if(!PoTools.writeVoiceActorCVSFile(targetDir, language, messages, isTTS)) {
+                return false;
+            }
         }
 
-        return false;
+        return true;
     }
 }
