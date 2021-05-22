@@ -45,8 +45,7 @@ export class CmdLineParser {
             })
             .option('map', {
                 abbr: 'm',
-                required: true,
-                help: 'json file with mapping for tts, role, roles'
+                help: 'custom json file with mapping for tts, role, roles'
             })
             .help('creates mp3 files with a free tts engine from *_tts.csv files create by the "po" command');
 

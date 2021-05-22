@@ -5,7 +5,7 @@ const fs = require('fs');
 export interface Opts {
     source: string;
     target: string;
-    map: string;
+    map?: string;
 }
 
 export class TTS {

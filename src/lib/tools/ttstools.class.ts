@@ -8,7 +8,7 @@ export interface Message {
     text: string;
 }
 export class TTSTools {
-    private static async ttsmp3_com_engine(message: Message, targetDir: string, lang: string, map: string): Promise<boolean> {
+    private static async ttsmp3_com_engine(message: Message, targetDir: string, lang: string, map?: string): Promise<boolean> {
         const mp3 = message.mp3;
         const role = message.role;
         const text = message.text;
@@ -28,8 +28,26 @@ export class TTSTools {
 
         let voice = "Matthew"; // default
 
-        const mapData = fs.readFileSync(map);
-        const mapHash = JSON.parse(mapData);
+        let mapHash: any = {
+            default: "Matthew",
+            en: {
+                default: "Matthew",
+                narrator: "Matthew"
+            },
+            de: {
+                default: "Hans",
+                narrator: "Hans"
+            },
+            fr: {
+                default: "Mathieu",
+                narrator: "Mathieu"
+            }
+        };
+
+        if(map) {
+            const mapData = fs.readFileSync(map);
+            mapHash = JSON.parse(mapData);
+        }
 
         if (mapHash.hasOwnProperty["default"]) {
             voice = mapHash["default"]; // even better default
@@ -100,7 +118,7 @@ export class TTSTools {
         return true;
     }
 
-    public static async createMp3FilesFromCVS(csvFileName: string, targetBaseDir: string, lang: string, map: string): Promise<boolean> {
+    public static async createMp3FilesFromCVS(csvFileName: string, targetBaseDir: string, lang: string, map?: string): Promise<boolean> {
         const targetDir = targetBaseDir + "/" + lang;
 
         if (!fs.existsSync(targetDir)) {
