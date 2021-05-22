@@ -3,7 +3,7 @@ import { State } from './statemachine';
 
 export abstract class GameState extends State {
     public static verboseText: boolean = true;
-    text(str: string): void {
+    async text(str: string): Promise<void> {
         const mp3 = msgid2mp3name(str, ']');
         str = cleanHTMLEntities(str);
         if (GameState.verboseText) {
@@ -12,25 +12,25 @@ export abstract class GameState extends State {
             console.log('   mp3 audio:', str);
         }
     }
-    randomText(...args: string[]): void {
+    async randomText(...args: string[]): Promise<void> {
         const i = Math.floor(Math.random() * args.length);
-        this.text(args[i]);
+        await this.text(args[i]);
     }
-    bgMusic(str: string): void {
+    async bgMusic(str: string): Promise<void> {
         console.log('   looped background music:', str);
     }
-    sfx(str: string): void {
+    async sfx(str: string): Promise<void> {
         console.log('   sfx:', str);
     }
-    stopBgMusic(): void {
+    async stopBgMusic(): Promise<void> {
         console.log('   background music stopped');
     }
-    delay(ms: number): void {
+    async delay(ms: number): Promise<void> {
         Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
     }
 
     hack1 = true;
-    calibrateReferenceFrame(): boolean {
+    async calibrateReferenceFrame(): Promise<boolean> {
         if (this.hack1) {
             this.hack1 = false;
             return false;
@@ -39,7 +39,7 @@ export abstract class GameState extends State {
     }
 
     hack2 = true;
-    detectColorCalibrationCard(): boolean {
+    async detectColorCalibrationCard(): Promise<boolean> {
         if (this.hack2) {
             this.hack2 = false;
             return false;
@@ -49,7 +49,7 @@ export abstract class GameState extends State {
     }
 
     hack3 = true;
-    queryTokens(param: any): any {
+    async queryTokens(param: any): Promise<any> {
         if (param.timeout) {
             this.delay(param.timeout);
         }

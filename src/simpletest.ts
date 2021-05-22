@@ -9,11 +9,11 @@ class Solid extends State {
         }
     ];
 
-    on(ctx: Context): void {
+    async on(ctx: Context): Promise<void> {
         if (ctx.from == 'liquid') {
             console.log(' ... good bye');
         } else {
-            this.transitionTo('melt');
+            await this.transitionTo('melt');
         }
     }
 }
@@ -31,11 +31,11 @@ class Liquid extends State {
         }
     ];
 
-    on(ctx: Context): void {
+    async on(ctx: Context): Promise<void> {
         if (ctx.from == 'solid') {
-            this.transitionTo('vaporize');
+            await this.transitionTo('vaporize');
         } else {
-            this.transitionTo('freeze');
+            await this.transitionTo('freeze');
         }
 
     }
@@ -50,8 +50,8 @@ class Gas extends State {
         }
     ];
 
-    on(ctx: Context): void {
-        this.transitionTo('condense');
+    async on(ctx: Context): Promise<void> {
+        await this.transitionTo('condense');
     }
 }
 
@@ -61,4 +61,9 @@ const states: State[] = [
 
 const sm = new StateMachine(states);
 sm.verbose = true;
-sm.run('Solid');
+
+async function run() {
+    await sm.run('solid')
+}
+
+run();
