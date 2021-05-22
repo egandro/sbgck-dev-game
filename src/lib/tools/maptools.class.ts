@@ -4,6 +4,7 @@ const path = require('path');
 
 
 export class MapTools {
+    public static verbose = false;
 
     public static createJsonFilesFromImageMaps(sourceDir: string, targetDir: string, forceOverWrite: boolean): boolean {
         if (!fs.existsSync(sourceDir)) {
@@ -49,7 +50,9 @@ export class MapTools {
         const targetFile = targetDir + "/" + mapName + ".json";
 
         if (forceOverWrite != true && fs.existsSync(targetFile)) {
-            console.log("already have:", targetFile);
+            if(MapTools.verbose) {
+                console.log("already have:", targetFile);
+            }
             return true;
         }
 
@@ -58,19 +61,19 @@ export class MapTools {
         result.map = [];
 
         if (parser.validate(xmlData) !== true) {
-            console.log(`error: invalid xml input file ${fileName}`);
+            console.error(`error: invalid xml input file ${fileName}`);
             return false;
         }
 
         const json = parser.parse(xmlData, options);
 
         if(!json.hasOwnProperty("map")) {
-            console.log(`error: no <map> tag in file ${fileName}`);
+            console.error(`error: no <map> tag in file ${fileName}`);
             return false;
         }
 
         if(!json["map"].hasOwnProperty("area")) {
-            console.log(`error: no <area> tag in <map> file ${fileName}`);
+            console.error(`error: no <area> tag in <map> file ${fileName}`);
             return false;
         }
 
@@ -78,15 +81,15 @@ export class MapTools {
 
         for(const area of areas) {
             if(!area.hasOwnProperty("shape")) {
-                console.log(`error: no "shape" attribute in in <area> file ${fileName}`);
+                console.error(`error: no "shape" attribute in in <area> file ${fileName}`);
                 return false;
             }
             if(!area.hasOwnProperty("coords")) {
-                console.log(`error: no "coords" attribute in in <area> file ${fileName}`);
+                console.error(`error: no "coords" attribute in in <area> file ${fileName}`);
                 return false;
             }
             if(!area.hasOwnProperty("target")) {
-                console.log(`error: no "target" attribute in in <area> file ${fileName}`);
+                console.error(`error: no "target" attribute in in <area> file ${fileName}`);
                 return false;
             }
             const item = {

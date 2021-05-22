@@ -4,6 +4,8 @@ const hasbin = require('hasbin');
 const { execSync } = require('child_process');
 
 export class SVGTools {
+    public static verbose = false;
+
     public static createPNGsFromSVGs(sourceDir: string, targetDir: string, forceOverWrite: boolean): boolean {
         if (!fs.existsSync(sourceDir)) {
             console.error(`error: source directory does not exist "${sourceDir}"`);
@@ -42,7 +44,9 @@ export class SVGTools {
         const targetFile = targetDir + "/" + mapName + ".png";
 
         if (forceOverWrite != true && fs.existsSync(targetFile)) {
-            console.log("already have:", targetFile);
+            if(SVGTools.verbose) {
+                console.log("already have:", targetFile);
+            }
             return true;
         }
 

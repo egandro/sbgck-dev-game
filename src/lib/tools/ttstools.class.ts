@@ -1,4 +1,4 @@
-const csvsync = require('csvsync');
+const csvsync = require('./csvsync');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
@@ -8,6 +8,8 @@ export interface Message {
     text: string;
 }
 export class TTSTools {
+    public static verbose = false;
+
     private static async ttsmp3_com_engine(message: Message, targetDir: string, lang: string,
             forceOverWrite: boolean, map?: string): Promise<boolean> {
         const mp3 = message.mp3;
@@ -24,7 +26,9 @@ export class TTSTools {
         const targetFile = targetDir + '/' + mp3;
 
         if (forceOverWrite != true && fs.existsSync(targetFile)) {
-            console.log("already have:", targetFile);
+            if(TTSTools.verbose) {
+                console.log("already have:", targetFile);
+            }
             return true;
         }
 
@@ -115,7 +119,9 @@ export class TTSTools {
             "credentials": "omit"
         }).then((res: any) => res.buffer());
 
+        //if(TTSTools.verbose) {
         console.log(`downloaded: ${targetFile} - language: ${lang} - role: ${role} - voice: ${voice} - text: ${text}`);
+        //}
         fs.writeFileSync(targetFile, response);
 
         return true;
