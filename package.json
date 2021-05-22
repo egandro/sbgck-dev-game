@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@gerhobbelt/nomnom": "*",
     "export-to-csv": "^0.2.1",
     "fast-csv": "^4.3.6",
     "i": "^0.3.6",
@@ -26,12 +27,11 @@
     "node-fetch": "^2.6.1",
     "pofile": "^1.1.1",
     "string-strip-html": "^8.2.13",
-    "ttag": "^1.7.24",
-    "yargs": "^15.4.1"
+    "ttag": "^1.7.24"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.0",
     "@types/node": "^14.14.31",
+    "@types/yargs": "^17.0.0",
     "mkdirp": "^0.5.5",
     "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",

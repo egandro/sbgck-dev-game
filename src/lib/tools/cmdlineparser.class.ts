@@ -1,91 +1,46 @@
-import { Arguments, options }  from "yargs";
+var parser = require("@gerhobbelt/nomnom")
 
-
-interface Args extends Arguments {
-	foo?: string;
+export interface Opts {
 }
-
-const logLevels = ["debug", "info", "warn", "error"] as const;
-
-type logLevel = typeof logLevels[number];
-
-const flags = {
-	filename: {
-		// default: "bar",
-		demandOption: true,
-		description: "game filename",
-        // boolean: true,
-	},
-    logLevel: {
-		default: "info" as logLevel,
-		choices: logLevels as ReadonlyArray<logLevel>,
-	},
-}
-
+export interface Action {
+    module: string,
+    opts: Opts
+};
 
 export class CmdLineParser {
-    public static parse(): any {
+    public static parse(): Action | null {
+        parser.command('po')
+            .option('source', {
+                abbr: 's',
+                metavar: 'src',
+                required: true,
+                help: 'source directory of game files'
+            })
+            .option('target', {
+                abbr: 't',
+                metavar: 'build',
+                required: true,
+                help: 'output directory of po files'
+            })
+            .option('lang', {
+                abbr: 'l',
+                metavar: 'en,de,uk',
+                required: true,
+                help: 'comma separated names of the languages for the po file - first is the default [required]'
+            })
+            .help('creates po for a directory with typescript files');
 
-        const args: Args = options(flags).argv as Args;
+        let opts = parser.parse();
 
-        console.log(args._, args);
+        if (opts[0] === undefined || opts[0] === '') {
+            return null;
+        }
 
-        // parser.command('init')
-        //     .option('file', {
-        //         abbr: 'f',
-        //         metavar: 'sdb.json',
-        //         required: true,
-        //         help: 'path for to a typescript-mdd config file [required]'
-        //     })
-        //     .help('creates a new nicassa-generator config file or adds a section to an existing json file');
+        const action: Action = {
+            module: '../lib/module/' + opts[0],
+            opts: opts
+        };
 
-        // parser.command('addgen')
-        //     .option('file', {
-        //         abbr: 'f',
-        //         metavar: 'nicassa.json',
-        //         required: true,
-        //         help: 'path to a nicassa-generator config file [required]'
-        //     })
-        //     .option('type', {
-        //         abbr: 't',
-        //         metavar: 'generator',
-        //         required: true,
-        //         help: 'type of the generator (sequelize.ts.dal, angular.client, unirest.ts.client, android.ormlite.dal, android.retrofit.client)'
-        //     })
-        //     .option('name', {
-        //         abbr: 'n',
-        //         metavar: 'name',
-        //         help: 'optional name of the generator - the default name is the generator typename - every name must be unique'
-        //     })
-        //     .help('adds generator to a given typescript-mdd config file');
-
-        // parser.command('gen')
-        //     .option('file', {
-        //         abbr: 'f',
-        //         metavar: 'nicassa.json',
-        //         required: true,
-        //         help: 'path to a nicassa-generator config file [required]'
-        //     })
-        //     .option('name', {
-        //         abbr: 'n',
-        //         metavar: 'name',
-        //         help: 'only run the code generator with the given name - this can also be an inactive generator'
-        //     })
-        //     .help('runs a generator in a given nicassa-generator config file - if no name is given, all active generators will be started');
-
-
-        // var opts = parser.parse();
-        // var action = null;
-
-        // if (opts[0] === undefined || opts[0] === '') {
-        //     action = null;
-        // } else {
-        //     action = {
-        //         module: '../lib/actions/' + opts[0],
-        //         opts: opts
-        //     };
-        // }
-
-  //      return action;
+        return action;
     }
 }

@@ -1,9 +1,9 @@
-import { CmdLineParser } from './tools/cmdlineparser.class';
-const args = CmdLineParser.parse();
+import { CmdLineParser, Action } from './tools/cmdlineparser.class';
+const args: Action | null = CmdLineParser.parse();
 
 if (args == null) {
     process.exit(0);
 }
 
-const action = require(args.module).default;
-action(args.opts);
+const run = require(args.module).default;
+run(args.opts);
