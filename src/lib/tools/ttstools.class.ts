@@ -50,10 +50,7 @@ export class TTSTools {
         let response = await fetch("https://ttsmp3.com/makemp3_new.php", {
             "headers": {
                 "accept": "*/*",
-                "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
                 "content-type": "application/x-www-form-urlencoded",
-                "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"90\", \"Google Chrome\";v=\"90\"",
-                "sec-ch-ua-mobile": "?0",
                 "sec-fetch-dest": "empty",
                 "sec-fetch-mode": "cors",
                 "sec-fetch-site": "same-origin"
@@ -67,7 +64,7 @@ export class TTSTools {
 
         const json = await response.json();
 
-        if(json.Error != null && json.Error !== undefined) {
+        if(json.Error != null && json.Error !== undefined && json.Error !== 0) {
             console.error(`error : ${json.Error}`);
             return false;
         }
@@ -83,9 +80,7 @@ export class TTSTools {
         response = await fetch(URL, {
             "headers": {
                 "accept": "*/*",
-                "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
                 "range": "bytes=0-",
-                "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"90\", \"Google Chrome\";v=\"90\"",
                 "sec-ch-ua-mobile": "?0",
                 "sec-fetch-dest": "audio",
                 "sec-fetch-mode": "no-cors",
