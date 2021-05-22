@@ -1,17 +1,17 @@
-import { PoTools } from "../tools/potools.class";
+import { TTSTools } from "../tools/ttstools.class";
 
 const fs = require('fs');
 
 export interface Opts {
     source: string;
     target: string;
-    lang: string;
+    map: string;
 }
 
-export class Po {
+export class TTS {
     opts: Opts = <any>null;
 
-    run(opts: Opts): number {
+    async run(opts: Opts): Promise<number> {
         this.opts = opts;
 
         if (!fs.existsSync(this.opts.source)) {
@@ -28,16 +28,26 @@ export class Po {
             return 1;
         }
 
-        const langs = this.opts.lang.split(',');
+        if (!fs.existsSync(this.opts.map)) {
+            console.error(`error: tts map file does not exist "${this.opts.map}"`);
+            return 1;
+        }
 
-        for (const i in langs) {
-            const lang = langs[i].trim();
+        const fileNames = fs.readdirSync(this.opts.source);
+        const tail = "_tts.csv";
 
-            if(!PoTools.createOrUpdatePoFile(this.opts.source, this.opts.target, lang)) {
-                return 1;
+        for (const fileName of fileNames) {
+            if (!fileName.endsWith(tail)) {
+                continue;
             }
+            if (fileName.length != tail.length + 2) {
+                continue;
+            }
+            const lang = fileName.substr(0, 2);
 
-            if(!PoTools.createVoiceActorListFromPoFile(this.opts.target, lang)) {
+            const csvFile = this.opts.source + "/" + fileName;
+
+            if(!await TTSTools.createMp3FilesFromCVS(csvFile, this.opts.target, lang, this.opts.map)) {
                 return 1;
             }
         }
@@ -47,6 +57,6 @@ export class Po {
 }
 
 export default function run(opts: any) {
-    let instance = new Po();
+    let instance = new TTS();
     return instance.run(opts);
 }

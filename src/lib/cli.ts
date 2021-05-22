@@ -6,4 +6,11 @@ if (args == null) {
 }
 
 const run = require(args.module).default;
-process.exit(run(args.opts));
+const opts = args.opts;
+
+async function start() : Promise<void> {
+    const result = await run(opts);
+    process.exit(result);
+}
+
+start();

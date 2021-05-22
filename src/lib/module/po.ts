@@ -11,7 +11,7 @@ export interface Opts {
 export class Po {
     opts: Opts = <any>null;
 
-    run(opts: Opts): number {
+    async run(opts: Opts): Promise<number> {
         this.opts = opts;
 
         if (!fs.existsSync(this.opts.source)) {
@@ -46,7 +46,7 @@ export class Po {
     }
 }
 
-export default function run(opts: any) {
+export default async function run(opts: any) {
     let instance = new Po();
     return instance.run(opts);
 }

@@ -1,0 +1,15 @@
+{
+    "default": "Matthew",
+    "en": {
+        "default": "Matthew",
+        "narrator": "Matthew"
+    },
+    "de": {
+        "default": "Hans",
+        "narrator": "Hans"
+    },
+    "fr": {
+        "default": "Mathieu",
+        "narrator": "Mathieu"
+    }
+}

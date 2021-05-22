@@ -28,3 +28,7 @@ Idea:
 ```
   $ echo -n '${ narrator }Please make sure the camera is working, please check the zoom level and make sure it can see the playfield.' | md5sum | sed 's/\s.*$//'
 ```
+
+node launcher.js po -s ./src -t ./dist/po -l en,de,fr
+
+node launcher.js tts -s ./dist/po -t ./dist/mp3 -m ./tts-map.json
