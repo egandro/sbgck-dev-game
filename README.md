@@ -36,9 +36,9 @@ node launcher.js po -s ./src -t ./dist/po -l en,de,fr
 
 node launcher.js po -s ./src -t ./dist/po -l en
 
-node launcher.js tts -s ./dist/po -t ./dist/mp3
+node launcher.js tts -s ./dist/po -t ./dist/audio
 
-node launcher.js tts -s ./dist/po -t ./dist/mp3 -m ./tts-map.json
+node launcher.js tts -s ./dist/po -t ./dist/audio -m ./tts-map.json
 
 node launcher.js map -s ./boards -t ./dist/boards
 

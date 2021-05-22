@@ -17,7 +17,7 @@ class StartScreen extends GameState {
     ];
 
     on(ctx: Context): void {
-        this.bgMusic('main_theme.mp3');
+        this.bgMusic('Ove - Earth Is All We Have _1.ogg');
         this.text(t`${narrator}<emphasis level="strong">     Welcome  </emphasis> to the debug game. This game is for one player.`);
         this.delay(2000);
         this.text(t`${narrator}Please make sure the camera is working, please check the zoom level and make sure it can see the playfield.`);
@@ -41,19 +41,19 @@ class CalibrateReferenceFrame extends GameState {
         while (true) {
             this.text(t`${narrator}Please remove all material from the playfield.`);
             if (first) {
-                this.text(t`${narrator}Please wait until you hear this notification bell.`);
-                this.sfx('bell.mp3');
+                this.text(t`${narrator}Please wait until you hear this notification.`);
+                this.sfx('Win sound.wav');
                 this.delay(2000);
                 this.text(t`${narrator}Please empty the board.`);
                 this.delay(2000);
                 first = false;
             }
             if (this.calibrateReferenceFrame()) {
-                this.sfx('bell.mp3');
+                this.sfx('Win sound.wav');
                 this.transitionTo('gotoCalibrateColors');
                 break;
             }
-            this.sfx('error.mp3');
+            this.sfx('lose sound 1_0.wav');
             this.text(t`${narrator}We have issues detecting the playfield.`);
             this.delay(2000);
         }
@@ -81,7 +81,7 @@ class CalibrateColors extends GameState {
                 this.transitionTo('gotoEndCalibrateColors');
                 break;
             }
-            this.sfx('error.mp3');
+            this.sfx('lose sound 1_0.wav');
             this.text(t`${narrator}We have issues detecting the color calibration card.`);
             this.delay(2000);
         }
@@ -98,16 +98,16 @@ class EndCalibrateColors extends GameState {
     ];
 
     on(ctx: Context): void {
-        this.sfx('bell.mp3');
+        this.sfx('Win sound.wav');
         while (true) {
             this.text(t`${narrator}Color calibration successful. Please remove the color calibration card.`);
             this.delay(2000);
             if (!this.detectColorCalibrationCard()) {
-                this.sfx('bell.mp3');
+                this.sfx('Win sound.wav');
                 this.transitionTo('gotoExplainRules');
                 break;
             }
-            this.sfx('error.mp3');
+            this.sfx('lose sound 1_0.wav');
             this.text(t`${narrator}Please remove the color calibration card.`);
             this.delay(2000);
         }
@@ -161,7 +161,7 @@ class DetectPlayers extends GameState {
                 }
             );
             if (players.length == 0) {
-                this.sfx('error.mp3');
+                this.sfx('lose sound 1_0.wav');
                 this.text(t`${narrator}No Player detected`);
             } else {
                 this.sm.globalData['players'] = players;

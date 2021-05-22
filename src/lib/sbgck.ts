@@ -9,9 +9,9 @@ export abstract class GameState extends State {
             const mp3 = message?.mp3;
             const role = message?.role;
             const text = message?.message;
-            console.log(`   mp3 audio [${mp3}] [${role}]: ${text}`);
+            console.log(`   audio [${mp3}] [${role}]: ${text}`);
         } else {
-            console.log('   mp3 audio:', str);
+            console.log('   audio:', str);
         }
     }
     randomText(...args: string[]): void {
