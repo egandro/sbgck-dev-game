@@ -27,7 +27,7 @@ for (const item of po.items) {
 
         if (!messages.hasOwnProperty(mp3)) {
             messages[mp3] = rawText;
-            const role = prefix.replace("\$", "").replace("{","").replace("}","");
+            const role = prefix.replace("\$", "").replace("{", "").replace("}", "");
             let item: any = {
                 mp3: mp3,
                 role: role.trim(),
@@ -38,7 +38,7 @@ for (const item of po.items) {
             // deep clone
             item = JSON.parse(JSON.stringify(item));
             item.text = trimString(rawText), // with html entities
-            itemsRaw.push(item);
+                itemsRaw.push(item);
         }
     }
 }
@@ -57,14 +57,14 @@ const options = {
     useBom: true,
     // useKeysAsHeaders: true,
     headers: ['"mp3"', '"role"', '"text"'] // Won't work with useKeysAsHeaders present!
-  };
+};
 
 const csvExporter = new ExportToCsv(options);
 
 
 // add language to the filename
 const csvData = csvExporter.generateCsv(items, true);
-fs.writeFileSync('./po/voice_actor.csv',csvData);
+fs.writeFileSync('./po/voice_actor.csv', csvData);
 
 const csvDataRaw = csvExporter.generateCsv(itemsRaw, true);
-fs.writeFileSync('./po/voice_actor_tt2speech.csv',csvDataRaw);
+fs.writeFileSync('./po/voice_actor_tt2speech.csv', csvDataRaw);

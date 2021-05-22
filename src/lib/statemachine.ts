@@ -19,8 +19,8 @@ export interface StateInterface {
     name: string;
     sm: StateMachine;
     transitions: Transition[];
-    on(ctx: Context): Promise<void>;
-    transitionTo(transitionToCall: string): Promise <void>;
+    on(ctx: Context): void;
+    transitionTo(transitionToCall: string): void;
 }
 
 export abstract class State implements StateInterface {
@@ -28,8 +28,8 @@ export abstract class State implements StateInterface {
     sm: StateMachine = <any>null;
     abstract name = "";
     abstract transitions: Transition[] = [];
-    abstract on(ctx: Context): Promise<void>;
-    async transitionTo(transitionToCall: string): Promise<void> {
+    abstract on(ctx: Context): void;
+    transitionTo(transitionToCall: string): void {
         this._transitionToCall = transitionToCall;
     }
 }
@@ -80,14 +80,14 @@ export class StateMachine {
         // console.log(this.fsm);
     }
 
-    async run(startState: string) : Promise<void> {
+    run(startState: string): void {
         startState = startState.toLowerCase();
         if (!this.fsm.allStates().includes(startState)) {
             console.error('invalid start state', startState);
             return;
         }
 
-        await this.fsm.goto(startState);
+        this.fsm.goto(startState);
 
         while (true) {
             let found = false;
@@ -117,11 +117,11 @@ export class StateMachine {
                                     // this.fsm.goto(transMap.from);
                                     // this.fsm._fsm.fire(transMap);
                                     // super hack here
-                                    await this.fsm._fsm.transit(trans, transMap.from + '_transitive', transMap.to, []);
+                                    this.fsm._fsm.transit(trans, transMap.from + '_transitive', transMap.to, []);
                                     break;
                                 }
                             }
-                            await this.fsm[trans]();
+                            this.fsm[trans]();
                             break;
                         }
                     }

@@ -1,5 +1,7 @@
+import { PoTools } from "../tools/potools.class";
+
 const fs = require('fs');
-const { execSync, spawnSync } = require('child_process');
+
 export interface Opts {
     source: string;
     target: string;
@@ -26,34 +28,22 @@ export class Po {
             return 1;
         }
 
-        // get the bin path of npm by calling "npm bin"
-        const npmBinPath = execSync("npm bin").toString().trim();
-        const ttagCmd = npmBinPath + "/" + "ttag";
-
         const langs = this.opts.lang.split(',');
 
         for (const i in langs) {
-            // make pretty
             const lang = langs[i].trim();
 
-            const poFile = this.opts.target + "/" + lang + ".po";
-
-            // init
-            if (!fs.existsSync(poFile)) {
-                let cmd = ttagCmd + ` init ${lang} ${poFile}`;
-                execSync(cmd);
-            } else {
-                // console.log(`${poFile} exists - init skip`);
+            if(!PoTools.createOrUpdatePoFile(this.opts.source, this.opts.target, lang)) {
+                return 1;
             }
 
-            // update
-            let cmd = ttagCmd + ` update ${poFile} ${this.opts.source}`;
-            execSync(cmd);
+            if(!PoTools.createVoiceActorListFromPoFile(this.opts.target, lang)) {
+                return 1;
+            }
         }
 
         return 0;
     }
-
 }
 
 export default function run(opts: any) {

@@ -1,36 +1,38 @@
-import { msgid2mp3name, cleanHTMLEntities } from './poutils';
+import { PoTools } from "./tools/potools.class";
 import { State } from './statemachine';
 
 export abstract class GameState extends State {
     public static verboseText: boolean = true;
-    async text(str: string): Promise<void> {
-        const mp3 = msgid2mp3name(str, ']');
-        str = cleanHTMLEntities(str);
+    text(str: string): void {
         if (GameState.verboseText) {
-            console.log('   mp3 audio:', mp3, str);
+            const message = PoTools.getMessage(str);
+            const mp3 = message?.mp3;
+            const role = message?.role;
+            const text = message?.message;
+            console.log(`   mp3 audio [${mp3}] [${role}]: ${text}`);
         } else {
             console.log('   mp3 audio:', str);
         }
     }
-    async randomText(...args: string[]): Promise<void> {
+    randomText(...args: string[]): void {
         const i = Math.floor(Math.random() * args.length);
-        await this.text(args[i]);
+        this.text(args[i]);
     }
-    async bgMusic(str: string): Promise<void> {
-        console.log('   looped background music:', str);
+    bgMusic(str: string): void {
+        console.log(`   looped background music [${str}]`);
     }
-    async sfx(str: string): Promise<void> {
-        console.log('   sfx:', str);
+    sfx(str: string): void {
+        console.log(`   sfx [${str}]`);
     }
-    async stopBgMusic(): Promise<void> {
+    stopBgMusic(): void {
         console.log('   background music stopped');
     }
-    async delay(ms: number): Promise<void> {
+    delay(ms: number): void {
         Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
     }
 
     hack1 = true;
-    async calibrateReferenceFrame(): Promise<boolean> {
+    calibrateReferenceFrame(): boolean {
         if (this.hack1) {
             this.hack1 = false;
             return false;
@@ -39,7 +41,7 @@ export abstract class GameState extends State {
     }
 
     hack2 = true;
-    async detectColorCalibrationCard(): Promise<boolean> {
+    detectColorCalibrationCard(): boolean {
         if (this.hack2) {
             this.hack2 = false;
             return false;
@@ -49,7 +51,7 @@ export abstract class GameState extends State {
     }
 
     hack3 = true;
-    async queryTokens(param: any): Promise<any> {
+    queryTokens(param: any): any {
         if (param.timeout) {
             this.delay(param.timeout);
         }
