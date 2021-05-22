@@ -22,7 +22,7 @@ export class TTSTools {
 
         const targetFile = targetDir + '/' + mp3;
         if (fs.existsSync(targetFile)) {
-            console.log("already have: ", targetFile);
+            console.log("already have:", targetFile);
             return true;
         }
 

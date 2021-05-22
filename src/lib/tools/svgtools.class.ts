@@ -16,7 +16,7 @@ export class SVGTools {
         }
 
         if (fs.existsSync(targetFile)) {
-            console.log("already have: ", targetFile);
+            console.log("already have:", targetFile);
             return true;
         }
 
