@@ -11,7 +11,7 @@ export class SVGTools {
         let mogrifyCmd = "mogrify";
 
         // imagemagick 7+
-        if(hasbin.sync('magick')) {
+        if(hasbin.sync('magick')) { // node version of "where" or "which" command
             mogrifyCmd = "magick " + mogrifyCmd;
         }
 
