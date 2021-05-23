@@ -1,7 +1,5 @@
 import { t } from 'ttag';
-
-import { StateMachine, Context } from './lib/statemachine';
-import { GameState } from './lib/sbgck';
+import { StateMachine, Context, GameState } from '@sbgck/engine';
 
 export const narrator: string = '${narrator}'; // hack for t's
 

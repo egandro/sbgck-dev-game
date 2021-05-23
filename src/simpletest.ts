@@ -1,4 +1,4 @@
-import { State, StateMachine, Context } from './lib/statemachine';
+import { State, StateMachine, Context } from '@sbgck/engine';
 
 class Solid extends State {
     name = 'Solid';
