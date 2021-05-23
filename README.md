@@ -10,13 +10,17 @@ Linux
 
 ```bash
 $ sudo apt-get install imagemagick
+$ sudo apt-get install sox
 ```
 
 Windows:
 
 ```cmd
 choco install imagemagick
+choco install sox.portable
 ```
+
+ToDo: Batch converter <https://stackoverflow.com/questions/48884679/sox-batch-conversion>
 
 ## How to create image maps
 

@@ -42,18 +42,18 @@ class CalibrateReferenceFrame extends GameState {
             this.text(t`${narrator}Please remove all material from the playfield.`);
             if (first) {
                 this.text(t`${narrator}Please wait until you hear this notification.`);
-                this.sfx('Win sound.wav');
+                this.sfx('Win sound.ogg');
                 this.delay(2000);
                 this.text(t`${narrator}Please empty the board.`);
                 this.delay(2000);
                 first = false;
             }
             if (this.calibrateReferenceFrame()) {
-                this.sfx('Win sound.wav');
+                this.sfx('Win sound.ogg');
                 this.transitionTo('gotoCalibrateColors');
                 break;
             }
-            this.sfx('lose sound 1_0.wav');
+            this.sfx('lose sound 1_0.ogg');
             this.text(t`${narrator}We have issues detecting the playfield.`);
             this.delay(2000);
         }
@@ -81,7 +81,7 @@ class CalibrateColors extends GameState {
                 this.transitionTo('gotoEndCalibrateColors');
                 break;
             }
-            this.sfx('lose sound 1_0.wav');
+            this.sfx('lose sound 1_0.ogg');
             this.text(t`${narrator}We have issues detecting the color calibration card.`);
             this.delay(2000);
         }
@@ -98,16 +98,16 @@ class EndCalibrateColors extends GameState {
     ];
 
     on(ctx: Context): void {
-        this.sfx('Win sound.wav');
+        this.sfx('Win sound.ogg');
         while (true) {
             this.text(t`${narrator}Color calibration successful. Please remove the color calibration card.`);
             this.delay(2000);
             if (!this.detectColorCalibrationCard()) {
-                this.sfx('Win sound.wav');
+                this.sfx('Win sound.ogg');
                 this.transitionTo('gotoExplainRules');
                 break;
             }
-            this.sfx('lose sound 1_0.wav');
+            this.sfx('lose sound 1_0.ogg');
             this.text(t`${narrator}Please remove the color calibration card.`);
             this.delay(2000);
         }
@@ -161,7 +161,7 @@ class DetectPlayers extends GameState {
                 }
             );
             if (players.length == 0) {
-                this.sfx('lose sound 1_0.wav');
+                this.sfx('lose sound 1_0.ogg');
                 this.text(t`${narrator}No Player detected`);
             } else {
                 this.sm.globalData['players'] = players;
