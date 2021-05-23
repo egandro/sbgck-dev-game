@@ -17,7 +17,7 @@ class StartScreen extends GameState {
     ];
 
     on(ctx: Context): void {
-        this.bgMusic('Ove - Earth Is All We Have _1.ogg');
+        this.bgMusic('Ove - Earth Is All We Have .ogg');
         this.text(t`${narrator}<emphasis level="strong">     Welcome  </emphasis> to the debug game. This game is for one player.`);
         this.delay(2000);
         this.text(t`${narrator}Please make sure the camera is working, please check the zoom level and make sure it can see the playfield.`);
