@@ -20,7 +20,11 @@ choco install imagemagick
 choco install sox.portable
 ```
 
-ToDo: Batch converter <https://stackoverflow.com/questions/48884679/sox-batch-conversion>
+ToDo:
+
+- Batch converter <https://stackoverflow.com/questions/48884679/sox-batch-conversion>
+- Normalize with  sox --norm or vorbisgain
+
 
 ## How to create image maps
 
