@@ -1,5 +1,5 @@
 import { t } from 'ttag';
-import { StateMachine, Context, GameState } from '@sbgck/engine';
+import { StateMachine, Context, GameState, QueryTokenResult } from '@sbgck/engine';
 
 export const narrator: string = '${narrator}'; // hack for t's
 
@@ -122,7 +122,7 @@ class ExplainRules extends GameState {
     ];
 
     on(ctx: Context): void {
-        this.stopBgMusic();
+        this.stopAllAudio();
         this.text(t`${narrator}In this great exiting game you will be an elite soldier. Your mission is to sneak into the enemies control post.`);
         this.text(t`${narrator}You will start at a broken bridge.`);
         this.delay(2000);
@@ -140,7 +140,7 @@ class DetectPlayers extends GameState {
     ];
 
     on(ctx: Context): void {
-        let players: any;
+        let players: QueryTokenResult;
         while (true) {
             this.text(t`${narrator}Please put your player token on the broken bridge.`);
             this.delay(2000);
@@ -150,7 +150,7 @@ class DetectPlayers extends GameState {
                         '#bridge'
                     ],
                     timeout: 5000,
-                    tokens: [
+                    names: [
                         'Blue Pentagon',
                         'Green Rectangle',
                         'Yellow Square',
@@ -158,11 +158,14 @@ class DetectPlayers extends GameState {
                     ]
                 }
             );
-            if (players.length == 0) {
+            if (players.error != "" || players.tokens == null || players.tokens.length == 0) {
                 this.sfx('lose sound 1_0.ogg');
                 this.text(t`${narrator}No Player detected`);
             } else {
-                this.sm.globalData['players'] = players;
+                this.sm.globalData['players'] = [];
+                for (const token of players.tokens) {
+                    this.sm.globalData['players'].push(token.name);
+                }
                 break;
             }
         }
