@@ -35,7 +35,7 @@ class CalibrateReferenceFrame extends GameState {
 
     on(ctx: Context): void {
         let first = true;
-        this.loadBoard('Arctic');
+        this.setBoard('Arctic');
         this.text(t`${narrator}We have to prepare a few things.`);
         while (true) {
             this.text(t`${narrator}Please remove all material from the playfield.`);
