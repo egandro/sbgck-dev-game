@@ -29,11 +29,6 @@
             "color": "0,0,255"
         },
         {
-            "name": "Blue Octagon",
-            "geometry": "Octagon",
-            "color": "0,0,255"
-        },
-        {
             "name": "Blue Pentagon",
             "geometry": "Pentagon",
             "color": "0,0,255"
@@ -65,11 +60,6 @@
             "color-until-color-calibration-works": "0,255,0"
         },
         {
-            "name": "Green Octagon",
-            "geometry": "Octagon",
-            "color": "0,255,0"
-        },
-        {
             "name": "Green Pentagon",
             "geometry": "Pentagon",
             "color": "0,255,0"
@@ -97,11 +87,6 @@
         {
             "name": "Purple Hexagon",
             "geometry": "Hexagon",
-            "color": "59,0,84"
-        },
-        {
-            "name": "Purple Octagon",
-            "geometry": "Octagon",
             "color": "59,0,84"
         },
         {
@@ -135,11 +120,6 @@
             "color": "255,0,0"
         },
         {
-            "name": "Red Octagon",
-            "geometry": "Octagon",
-            "color": "255,0,0"
-        },
-        {
             "name": "Red Pentagon",
             "geometry": "Pentagon",
             "color": "255,0,0"
@@ -167,11 +147,6 @@
         {
             "name": "Yellow Hexagon",
             "geometry": "Hexagon",
-            "color": "255,255,0"
-        },
-        {
-            "name": "Yellow Octagon",
-            "geometry": "Octagon",
             "color": "255,255,0"
         },
         {
