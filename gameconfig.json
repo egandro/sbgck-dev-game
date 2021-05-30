@@ -34,8 +34,8 @@
             "color": "0,0,255"
         },
         {
-            "name": "Blue Rectangle",
-            "geometry": "Rectangle",
+            "name": "Blue Rect",
+            "geometry": "Rect",
             "color": "0,0,255"
         },
         {
@@ -65,8 +65,8 @@
             "color": "0,255,0"
         },
         {
-            "name": "Green Rectangle",
-            "geometry": "Rectangle",
+            "name": "Green Rect",
+            "geometry": "Rect",
             "color": "0,255,0"
         },
         {
@@ -95,8 +95,8 @@
             "color": "59,0,84"
         },
         {
-            "name": "Purple Rectangle",
-            "geometry": "Rectangle",
+            "name": "Purple Rect",
+            "geometry": "Rect",
             "color": "59,0,84"
         },
         {
@@ -125,8 +125,8 @@
             "color": "255,0,0"
         },
         {
-            "name": "Red Rectangle",
-            "geometry": "Rectangle",
+            "name": "Red Rect",
+            "geometry": "Rect",
             "color": "255,0,0"
         },
         {
@@ -155,8 +155,8 @@
             "color": "255,255,0"
         },
         {
-            "name": "Yellow Rectangle",
-            "geometry": "Rectangle",
+            "name": "Yellow Rect",
+            "geometry": "Rect",
             "color": "255,255,0"
         },
         {
