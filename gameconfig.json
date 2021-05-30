@@ -20,178 +20,178 @@
         },
         {
             "name": "Blue Circle",
-            "tokenGeometry": "Circle",
+            "geometry": "Circle",
             "color": "0,0,255"
         },
         {
             "name": "Blue Hexagon",
-            "tokenGeometry": "Hexagon",
+            "geometry": "Hexagon",
             "color": "0,0,255"
         },
         {
             "name": "Blue Octagon",
-            "tokenGeometry": "Octagon",
+            "geometry": "Octagon",
             "color": "0,0,255"
         },
         {
             "name": "Blue Pentagon",
-            "tokenGeometry": "Pentagon",
+            "geometry": "Pentagon",
             "color": "0,0,255"
         },
         {
             "name": "Blue Rectangle",
-            "tokenGeometry": "Rectangle",
+            "geometry": "Rectangle",
             "color": "0,0,255"
         },
         {
             "name": "Blue Square",
-            "tokenGeometry": "Square",
+            "geometry": "Square",
             "color": "0,0,255"
         },
         {
             "name": "Blue Triangle",
-            "tokenGeometry": "Triangle",
+            "geometry": "Triangle",
             "color": "0,0,255"
         },
         {
             "name": "Green Circle",
-            "tokenGeometry": "Circle",
+            "geometry": "Circle",
             "color": "0,255,0"
         },
         {
             "name": "Green Hexagon",
-            "tokenGeometry": "Hexagon",
+            "geometry": "Hexagon",
             "color": "55,141,67",
             "color-until-color-calibration-works": "0,255,0"
         },
         {
             "name": "Green Octagon",
-            "tokenGeometry": "Octagon",
+            "geometry": "Octagon",
             "color": "0,255,0"
         },
         {
             "name": "Green Pentagon",
-            "tokenGeometry": "Pentagon",
+            "geometry": "Pentagon",
             "color": "0,255,0"
         },
         {
             "name": "Green Rectangle",
-            "tokenGeometry": "Rectangle",
+            "geometry": "Rectangle",
             "color": "0,255,0"
         },
         {
             "name": "Green Square",
-            "tokenGeometry": "Square",
+            "geometry": "Square",
             "color": "0,255,0"
         },
         {
             "name": "Green Triangle",
-            "tokenGeometry": "Triangle",
+            "geometry": "Triangle",
             "color": "0,255,0"
         },
         {
             "name": "Purple Circle",
-            "tokenGeometry": "Circle",
+            "geometry": "Circle",
             "color": "59,0,84"
         },
         {
             "name": "Purple Hexagon",
-            "tokenGeometry": "Hexagon",
+            "geometry": "Hexagon",
             "color": "59,0,84"
         },
         {
             "name": "Purple Octagon",
-            "tokenGeometry": "Octagon",
+            "geometry": "Octagon",
             "color": "59,0,84"
         },
         {
             "name": "Purple Pentagon",
-            "tokenGeometry": "Pentagon",
+            "geometry": "Pentagon",
             "color": "59,0,84"
         },
         {
             "name": "Purple Rectangle",
-            "tokenGeometry": "Rectangle",
+            "geometry": "Rectangle",
             "color": "59,0,84"
         },
         {
             "name": "Purple Square",
-            "tokenGeometry": "Square",
+            "geometry": "Square",
             "color": "59,0,84"
         },
         {
             "name": "Purple Triangle",
-            "tokenGeometry": "Triangle",
+            "geometry": "Triangle",
             "color": "59,0,84"
         },
         {
             "name": "Red Circle",
-            "tokenGeometry": "Circle",
+            "geometry": "Circle",
             "color": "255,0,0"
         },
         {
             "name": "Red Hexagon",
-            "tokenGeometry": "Hexagon",
+            "geometry": "Hexagon",
             "color": "255,0,0"
         },
         {
             "name": "Red Octagon",
-            "tokenGeometry": "Octagon",
+            "geometry": "Octagon",
             "color": "255,0,0"
         },
         {
             "name": "Red Pentagon",
-            "tokenGeometry": "Pentagon",
+            "geometry": "Pentagon",
             "color": "255,0,0"
         },
         {
             "name": "Red Rectangle",
-            "tokenGeometry": "Rectangle",
+            "geometry": "Rectangle",
             "color": "255,0,0"
         },
         {
             "name": "Red Square",
-            "tokenGeometry": "Square",
+            "geometry": "Square",
             "color": "255,0,0"
         },
         {
             "name": "Red Triangle",
-            "tokenGeometry": "Triangle",
+            "geometry": "Triangle",
             "color": "255,0,0"
         },
         {
             "name": "Yellow Circle",
-            "tokenGeometry": "Circle",
+            "geometry": "Circle",
             "color": "255,255,0"
         },
         {
             "name": "Yellow Hexagon",
-            "tokenGeometry": "Hexagon",
+            "geometry": "Hexagon",
             "color": "255,255,0"
         },
         {
             "name": "Yellow Octagon",
-            "tokenGeometry": "Octagon",
+            "geometry": "Octagon",
             "color": "255,255,0"
         },
         {
             "name": "Yellow Pentagon",
-            "tokenGeometry": "Pentagon",
+            "geometry": "Pentagon",
             "color": "255,255,0"
         },
         {
             "name": "Yellow Rectangle",
-            "tokenGeometry": "Rectangle",
+            "geometry": "Rectangle",
             "color": "255,255,0"
         },
         {
             "name": "Yellow Square",
-            "tokenGeometry": "Square",
+            "geometry": "Square",
             "color": "255,255,0"
         },
         {
             "name": "Yellow Triangle",
-            "tokenGeometry": "Triangle",
+            "geometry": "Triangle",
             "color": "255,255,0"
         }
     ],
@@ -220,27 +220,27 @@
         "tokens": [
             {
                 "name": "Remote Control Header (front)",
-                "tokenGeometry": "Rect",
+                "geometry": "Rect",
                 "color": "220,220,220"
             },
             {
                 "name": "Remote Control Header (back)",
-                "tokenGeometry": "Rect",
+                "geometry": "Rect",
                 "color": "220,220,220"
             },
             {
                 "name": "Remote Control Circle (blue)",
-                "tokenGeometry": "Circle",
+                "geometry": "Circle",
                 "color": "0,255,255"
             },
             {
                 "name": "Remote Control Circle (red)",
-                "tokenGeometry": "Circle",
+                "geometry": "Circle",
                 "color": "255,128,128"
             },
             {
                 "name": "Remote Control Triangle",
-                "tokenGeometry": "Triangle",
+                "geometry": "Triangle",
                 "color": "0,255,255"
             }
         ]
