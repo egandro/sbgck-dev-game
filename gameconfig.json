@@ -61,7 +61,8 @@
         {
             "name": "Green Hexagon",
             "tokenGeometry": "Hexagon",
-            "color": "0,255,0"
+            "color": "55,141,67",
+            "color-until-color-calibration-works": "0,255,0"
         },
         {
             "name": "Green Octagon",
