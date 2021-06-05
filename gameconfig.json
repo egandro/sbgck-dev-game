@@ -1,6 +1,44 @@
 {
     "name": "dev_game",
     "languages": ["en"],
+    "color_checker": {
+        "asset": "color_checker.png",
+        "border": 20,
+        "colors": [
+            [
+                "0,0,255",
+                "255,0,0",
+                "0,255,0",
+                "255,255,0",
+                "59,0,84",
+                "0,255,255"
+            ],
+            [
+                "255,128,128",
+                "255,255,255",
+                "0,0,0",
+                "255,255,255",
+                "255,255,255",
+                "255,255,255"
+            ],
+            [
+                "255,255,255",
+                "255,255,255",
+                "255,255,255",
+                "255,255,255",
+                "255,255,255",
+                "255,255,255"
+            ],
+            [
+                "243,243,243",
+                "200,200,200",
+                "160,160,160",
+                "122,122,121",
+                "85,85,85",
+                "52,52,52"
+            ]
+        ]
+    },
     "boards": [
         {
             "name": "Arctic",
@@ -56,8 +94,7 @@
         {
             "name": "Green Hexagon",
             "geometry": "Hexagon",
-            "color": "55,141,67",
-            "color-until-color-calibration-works": "0,255,0"
+            "color": "0,255,0"
         },
         {
             "name": "Green Pentagon",
@@ -168,56 +205,14 @@
             "name": "Yellow Triangle",
             "geometry": "Triangle",
             "color": "255,255,0"
+        },
+        {
+            "name": "Card No",
+            "asset": "card_no.png"
+        },
+        {
+            "name": "Card Yes",
+            "asset": "card_yes.png"
         }
-    ],
-    "remotes": {
-        "remotes": [
-            {
-                "name": "Front",
-                "buttons": [
-                    "Remote Control Header (front)",
-                    "Remote Control Circle (blue)",
-                    "Remote Control Circle (blue)",
-                    "Remote Control Circle (blue)",
-                    "Remote Control Triangle",
-                    "Remote Control Triangle"
-                ]
-            },
-            {
-                "name": "Back",
-                "buttons": [
-                    "Remote Control Header (back)",
-                    "Remote Control Circle (red)",
-                    "Remote Control Circle (blue)"
-                ]
-            }
-        ],
-        "tokens": [
-            {
-                "name": "Remote Control Header (front)",
-                "geometry": "Rect",
-                "color": "220,220,220"
-            },
-            {
-                "name": "Remote Control Header (back)",
-                "geometry": "Rect",
-                "color": "220,220,220"
-            },
-            {
-                "name": "Remote Control Circle (blue)",
-                "geometry": "Circle",
-                "color": "0,255,255"
-            },
-            {
-                "name": "Remote Control Circle (red)",
-                "geometry": "Circle",
-                "color": "255,128,128"
-            },
-            {
-                "name": "Remote Control Triangle",
-                "geometry": "Triangle",
-                "color": "0,255,255"
-            }
-        ]
-    }
+    ]
 }
